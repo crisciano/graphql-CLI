@@ -1,3 +1,4 @@
+'use strict';
 let createDir = require('create-dir')
 
 const Directories = async conf => {

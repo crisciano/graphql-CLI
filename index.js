@@ -1,3 +1,4 @@
+'use strict';
 const robots = {
     directories: require('./js/directories'),
     questions: require('./js/questions')
