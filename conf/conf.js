@@ -1,8 +1,9 @@
 exports.conf = {
     questions : {
         "basic": [ 
-            {value : 'Deseja incluir outra class (s/n)? '},
-            {value : 'Deseja incluir outra propriedade (s/n)? '},
+            {value: 'Nome do projeto? '},
+            {value: 'Deseja incluir outra class (s/n)? '},
+            {value: 'Deseja incluir outra propriedade (s/n)? '},
         ],
         "class" : [
             {key: 'class', value: 'Nome da Class? '},
