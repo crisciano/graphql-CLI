@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "readline-async": "^0.1.0",
+    "readline-sync": "^1.4.10"
+  },
+  "scripts": {
+    "start": "node index"
+  },
+  "name": "graphql-CLI",
+  "version": "1.0.0",
+  "description": "cli generator graphql",
+  "main": "index.js",
+  "repository": "https://github.com/crisciano/graphql-CLI.git",
+  "author": "Crisciano S. Botelho <criscianosti@gmail.com>",
+  "license": "MIT"
+}
