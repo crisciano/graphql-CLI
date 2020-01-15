@@ -1,68 +1,51 @@
 'use strict';
-const readline = require('readline-sync');
+// const readline = require('readline-sync');
+const inquirer = require('inquirer');
 
-const Questions = (conf) => {
+const Questions = async (conf) => {
     const { questions } = conf
-    const schemas = {};
-    let nameSchema; 
-    
-    conf["projectName"] = QC(questions.basic[0].value)
-    
-    while(1){
-        questions.class.forEach(q => {
-            nameSchema = QC(q.value)
-            schemas[nameSchema] = []
-        });
+    const schemas = []
+
+    await inquirer
+            .prompt(questions.projectName)
+            .then( async answers => {
+                conf = Object.assign(conf, answers)
+                await Q(conf)
+            });
+
+    async function Q(conf){
+
         while(1){
-            let res = Q(questions.attr)
-            res = filterJson(res);
+            let arr = []
+            let obj = {}
+            var className = await inquirer
+                                    .prompt(questions.className)
+                                    .then(answers => (answers))
+            let projectName = className.class
 
-            // console.log(res);
-            // schemas[nameSchema] = {}
-            // console.log(schemas[nameSchema]);
+            while(1){
+                
+                var props = await inquirer
+                                    .prompt(questions.loop)
+                                    .then(answers => (answers))
+                arr.push(props)
 
-            schemas[nameSchema].push({...res})
-            // schemas[nameSchema] = {...schemas[nameSchema], ...res}
-            // schemas[nameSchema].assign(...schemas[nameSchema], ...res)
+                var check = await inquirer
+                                    .prompt(questions.repeatProps)
+                                    .then(answers => (answers))
+                if(!check.repeatProps){ break; }
+            }
 
+            obj[projectName] = arr 
+            schemas.push(obj)
 
-            console.log('Schemas ===>',schemas);
-
-            console.log(conf);
-
-
-
-
-            loopAttr = readline.question(questions.basic[2].value)
-            if(loopAttr == 'n'){ break; }
+            var check = await inquirer
+                                .prompt(questions.repeatClass)
+                                .then(answers => (answers))
+            if(!check.repeatClass){ break; }
         }
-        
-        loopClass = readline.question(questions.basic[1].value)
-        if(loopClass == 'n'){ break; }
-    }
 
-    function Q(questions) {
-        let newObj = {};
-        questions.forEach(q => {
-            newObj[q.key] = readline.question(q.value)
-        });
-        return newObj
-    }
-
-    function QC(value) {
-        return readline.question(value)
-    }
-
-    function filterJson(res) {
-
-        res.required = res.required === "s" ? true: false
-        res.required ? (
-                res.type = `${conf.typesAttr[res.type]}!`
-            ):(
-                res.type = conf.typesAttr[res.type]
-            )
-
-        return res
+        conf['schemas'] = schemas
     }
 }
 

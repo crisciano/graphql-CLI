@@ -1,12 +1,67 @@
 exports.conf = {
     questions : {
-        "basic": [ 
-            {value: 'Nome do projeto? '},
-            {value: 'Deseja incluir outra class (s/n)? '},
-            {value: 'Deseja incluir outra propriedade (s/n)? '},
+        "projectName": [ 
+            {
+                type: 'input',
+                name: 'projectName',
+                message: "Nome do projeto",
+                default: function() {
+                  return 'teste';
+                }
+            }
         ],
-        "class" : [
-            {key: 'class', value: 'Nome da Class? '},
+        "repeatClass":[
+            {
+                type: 'confirm',
+                name: 'repeatClass',
+                message: 'Deseja incluir outra class?',
+                default: false
+            }
+        ],
+        "repeatProps":[
+            {
+                type: 'confirm',
+                name: 'repeatProps',
+                message: 'Deseja incluir outra propriedade?',
+                default: false
+            }
+        ],
+        "className": [
+            {
+                type: 'input',
+                name: 'class',
+                message: "Nome da Class"
+            }
+        ],
+        "loop": [
+            {
+                type: 'input',
+                name: 'attr',
+                message: "Nome do atributo"
+            },{
+                type: 'checkbox',
+                message: 'Tipo do atributo',
+                name: 'type',
+                choices: [
+                    {name:"ID" },
+                    {name:"String"},
+                    {name:"Float"},
+                    {name:"FK"}
+                ],
+                validate: function(answer) {
+                  if (answer.length < 1) {
+                    return 'Selecione uma opção.';
+                  }
+          
+                  return true;
+                }
+            },{
+                type: 'confirm',
+                name: 'required',
+                message: 'Atributo e obrigatorio',
+                default: false
+            }
+
         ],
         "attr": [
             {key: 'attr', value: 'Nome do atributo? '},
@@ -14,6 +69,11 @@ exports.conf = {
             {key: 'required', value: 'Atributo e obrigatorio (s/n) ? '}
         ]
     },
-    typesAttr: ["ID", "String", "Float", "FK"],
+    typesAttr: [
+        {name:"ID" },
+        {name:"String"},
+        {name:"Float"},
+        {name:"FK"}
+    ],
     dir : ['resolvers', 'schema']
 }

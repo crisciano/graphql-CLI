@@ -1,7 +1,8 @@
 {
   "dependencies": {
+    "chalk-pipe": "^3.0.0",
     "create-dir": "^1.0.3",
-    "readline-async": "^0.1.0",
+    "inquirer": "^7.0.3",
     "readline-sync": "^1.4.10"
   },
   "scripts": {
